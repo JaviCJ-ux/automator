@@ -1,0 +1,216 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="img/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Automator de American Tower">
+    <title>American Tower Contract Automator</title>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script src="js/general.js"></script>
+    <script src="js/simple.js"></script>
+    <script src="js/complex.js"></script>
+    <style>
+        body {font-family: Arial;}
+        
+        /* Style the tab */
+        .tab {
+          overflow: hidden;
+          border: 1px solid #ccc;
+          background-color: #f1f1f1;
+        }
+        
+        /* Style the buttons inside the tab */
+        .tab button {
+          background-color: inherit;
+          float: left;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 14px 16px;
+          transition: 0.3s;
+          font-size: 17px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+          background-color: #ddd;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+          background-color: #ccc;
+        }
+        
+        /* Style the tab content */
+        .tabcontent {
+          display: none;
+          padding: 6px 12px;
+          border: 1px solid #ccc;
+          border-top: none;
+        }
+
+        .loader {
+        border: 10px solid #f3f3f3; /* Light grey */
+        border-top: 10px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+        }
+
+        .boton_verde {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        }  
+        
+        .boton_buscar {
+        background-color: #008080; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        }
+        .input_buscar {
+        background-color: #FFFFFF; /* Green */
+        border: block;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: block;
+        display: inline-block;
+        font-size: 16px;
+        }
+        
+        .boton_azul {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        } 
+    </style>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    
+    <div class="container-fluid" data-component="Header">
+        <div id="logo">
+            <img src="img/americantower.png" alt=""/>
+        </div>
+        <div class="tab">
+        <!-- <button class="tablinks" onclick="openCase(event, 'Simple')">Use Case Simple</button>  --> 
+            <button class="tablinks"   id="defaultOpen" onclick="openCase(event, 'Complex')">Use Case Complex</button>
+        </div>
+        
+            <div id="Simple" class="tabcontent">
+               
+                <div class="row">
+                    <div class="col-sm">
+                        <img src="img/simple.png" width="90%" heigth="90%" alt="" usemap="#simple" />
+                    </div>
+                    <div class="col-sm">
+                        <div id="loadingSimple" style="display: none;">
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="loader"></div>
+                                </div>
+                                <div class="col-sm">
+                                    <p>
+                                        Connecting with Blockchain ... </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="infoContractSimple" class="col-sm">
+                            <h5><b>Contract Information</b></h5>
+                        </div>
+                        <div class="col-sm" id="infoMLASimple">
+                            <h5><b>MLA Conditions</b></h5>   
+                        </div>
+                        <div id="actionsSimple"></div>
+                    </div>
+                
+                </div>
+                <h5><b><input type='button' class='boton_buscar' value='Search' onclick=javascript:Simplex()></b>
+                    <input type="text" name="idx" autofocus class='input_buscar' placeholder="Enter SiteId or AssetId"></b>
+                    </h5>
+            </div>
+            
+            <div id="Complex" class="tabcontent">
+                <div class="row">
+                    <div class="col-sm">
+                        <img src="img/complex.png" width="95%" heigth="95%" alt="" usemap="#complex" />
+                     
+                    </div>
+                    <div class="col-sm">
+                        <div id="loadingComplex" style="display: none;">
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="loader"></div>
+                                </div>
+                                <div class="col-sm">
+                                    <p>Conectando con Blockchain ... </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="infoContractComplex">
+                            <h5><b>Contract Information</b></h5>
+                        </div> 
+                        <div id="infoMLAComplex">
+                            <h5><b>MLA Conditions</b></h5>
+                        </div>
+                        <div id="actionsComplex">
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="" class="col-sm">
+                    <h5><b><input type='button' class='boton_buscar' value='Search' onclick=javascript:Complexto()></b>
+                        <input type="text" autofocus name="idxs" class='input_buscar' placeholder="Enter SiteId or AssetId"></b>
+                        </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openCase(evt, usecase) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(usecase).style.display = "block";
+          evt.currentTarget.className += " active";
+         
+        }
+
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+</html>
